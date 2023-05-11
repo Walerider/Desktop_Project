@@ -41,7 +41,7 @@ public class AnotherFFmpegWrapper extends FFmpegWrapper {
     public void stopFFmpeg(){
         System.out.println("Логирование когда-нибудь будет, но сейчас это:" + killFFmpeg());
     }
-    public void anotherFFmpegDoing(String streamName,String... args){
+    public void anotherFFmpegDoing(String streamName,String ipAddress,String... args){
 
         final String[] commandsSequence = new String[]{
                 FFmpegWrapper.RECORDING_TOOL,
@@ -58,7 +58,7 @@ public class AnotherFFmpegWrapper extends FFmpegWrapper {
                 "-r", "30",
                 "-pix_fmt", conf().ffmpegPixelFormat(),
                 "-threads", "0",
-                RTMP_IP+streamName
+                ipAddress+streamName
         };
 
         List<String> command = new ArrayList<>();

@@ -3,14 +3,16 @@ package org.walerider;
 import java.io.File;
 
 public class MacFfmpegStreamer extends FFmpegStreamer {
-    String streamName;
-    public MacFfmpegStreamer(String name) {
+    private String streamName;
+    private String ipAddress;
+    public MacFfmpegStreamer(String name, String ipAddress) {
         this.streamName = name;
+        this.ipAddress = ipAddress;
     }
 
     @Override
     public void start() {
-        getAnotherFfmpegWrapper().anotherFFmpegDoing(streamName);
+        getAnotherFfmpegWrapper().anotherFFmpegDoing(streamName,ipAddress);
     }
 
     @Override
