@@ -6,6 +6,7 @@ import com.automation.remarks.video.recorder.ffmpeg.WindowsFFmpegRecorder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 public class Record extends Thread{
     private static BufferedReader reader;
@@ -36,6 +37,7 @@ public class Record extends Thread{
                 break;
             }
         }
+
     }
     @Video
     static void recordinf(WindowsFFmpegRecorder ffrec) throws InterruptedException {

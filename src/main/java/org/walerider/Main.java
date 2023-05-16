@@ -40,20 +40,11 @@ public class Main {
         system.equalsIgnoreCase("ьфс") || system.equalsIgnoreCase("ьфсщы")){
             ffmpegStreamer = new MacFfmpegStreamer(nickname,ip);
         }
+        CommandsClass cc = new CommandsClass(ffmpegStreamer);
         while (true){
             System.out.print("Введите команду:");
             String command = reader.readLine();
-            if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("ыефре")){
-                System.out.println("Поток пошёл(Ссылка для стрима:"+ ip + nickname + ").");
-                ffmpegStreamer.start();
-            }
-            if (command.equalsIgnoreCase("stop") || command.equalsIgnoreCase("ыещз")){
-                ffmpegStreamer.stop();
-            }
-            if(command.equalsIgnoreCase("kill") || command.equalsIgnoreCase("лшдд")){
-                break;
-            }
-            System.out.println();
+            cc.determinant(command);
         }
     }
 
