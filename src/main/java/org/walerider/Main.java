@@ -19,7 +19,7 @@ public class Main {
         System.out.print("Выберите тип стриминга(1:Компьютер -> Компьютер | 2:Компьютер -> Телефон):");
         type = reader.readLine();
         if(type.equalsIgnoreCase("1")){
-            ip = rtmp + ip;
+            ip = rtmp + ip + "stream/";
         }
         else if (type.equalsIgnoreCase("2")){
             ip = hls + ip + "hls/";
@@ -40,11 +40,16 @@ public class Main {
         system.equalsIgnoreCase("ьфс") || system.equalsIgnoreCase("ьфсщы")){
             ffmpegStreamer = new MacFfmpegStreamer(nickname,ip);
         }
-        CommandsClass cc = new CommandsClass(ffmpegStreamer);
+        CommandsClass cc = new CommandsClass(ffmpegStreamer,ip);
         while (true){
             System.out.print("Введите команду:");
             String command = reader.readLine();
-            cc.determinant(command);
+            if (command.equalsIgnoreCase("-kill") || command.equalsIgnoreCase("-лшдд")){
+                break;
+            }
+            else {
+                cc.determinant(command);
+            }
         }
     }
 
