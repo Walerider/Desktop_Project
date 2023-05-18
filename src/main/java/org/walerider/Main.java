@@ -40,7 +40,7 @@ public class Main {
         system.equalsIgnoreCase("ьфс") || system.equalsIgnoreCase("ьфсщы")){
             ffmpegStreamer = new MacFfmpegStreamer(nickname,ip);
         }
-        CommandsClass cc = new CommandsClass(ffmpegStreamer,ip);
+        CommandsClass cc = new CommandsClass(ffmpegStreamer,ip+nickname);
         while (true){
             System.out.print("Введите команду:");
             String command = reader.readLine();
