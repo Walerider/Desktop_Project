@@ -5,14 +5,16 @@ import java.io.File;
 public class MacFfmpegStreamer extends FFmpegStreamer {
     private String streamName;
     private String ipAddress;
-    public MacFfmpegStreamer(String name, String ipAddress) {
+    private String framerate;
+    public MacFfmpegStreamer(String name, String ipAddress,String framerate) {
         this.streamName = name;
         this.ipAddress = ipAddress;
+        this.framerate = framerate;
     }
 
     @Override
     public void start() {
-        getAnotherFfmpegWrapper().anotherFFmpegDoing(streamName,ipAddress);
+        getAnotherFfmpegWrapper().anotherFFmpegDoing(streamName,ipAddress,framerate);
     }
 
     @Override

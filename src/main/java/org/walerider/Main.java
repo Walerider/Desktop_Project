@@ -1,8 +1,14 @@
 package org.walerider;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import static com.automation.remarks.video.SystemUtils.getPidOf;
+import static com.automation.remarks.video.SystemUtils.runCommand;
+import static org.walerider.AnotherFFmpegWrapper.RECORDING_TOOL;
 
 public class Main {
     private static String ip;
@@ -11,40 +17,25 @@ public class Main {
     private static BufferedReader reader;
     private static FFmpegStreamer ffmpegStreamer;
     public static void main(String[] args) throws IOException{
-        String type;
+        String framerate;
         hls = "http://";
         rtmp = "rtmp://";
-        ip = "localhost/";
+        ip = "77.246.98.169";
         reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Выберите тип стриминга(1:Компьютер -> Компьютер | 2:Компьютер -> Телефон):");
-        type = reader.readLine();
-        if(type.equalsIgnoreCase("1")){
-            ip = rtmp + ip + "stream/";
-        }
-        else if (type.equalsIgnoreCase("2")){
-            ip = hls + ip + "hls/";
-        }
-        else {
-            System.out.println("Выставляю по умолчанию Компьютер -> Компьютер");
-            ip = rtmp + ip;
-        }
-        System.out.print("Введите тип вашей системы:");
-        String system = reader.readLine();
+        hls = hls + ip+ ":8080/" + "live/";
+        ip = rtmp + ip + ":1935/" + "stream/";
         System.out.print("Введите ваш логин:");
         String nickname = reader.readLine();
-        if(system.equalsIgnoreCase("windows") || system.equalsIgnoreCase("цштвщцы") ||
-           system.equalsIgnoreCase("win") || system.equalsIgnoreCase("цшт")) {
-            ffmpegStreamer = new WindowsFfmpegStreamer(nickname,ip);
-        }
-        else if(system.equalsIgnoreCase("mac") || system.equalsIgnoreCase("macos") ||
-        system.equalsIgnoreCase("ьфс") || system.equalsIgnoreCase("ьфсщы")){
-            ffmpegStreamer = new MacFfmpegStreamer(nickname,ip);
-        }
-        CommandsClass cc = new CommandsClass(ffmpegStreamer,ip+nickname);
+        System.out.println("Введите желаемое кол-во кадров");
+        framerate = reader.readLine();
+        hls += nickname + ".m3u8";
+        ffmpegStreamer = new WindowsFfmpegStreamer(nickname,ip,framerate);
+        CommandsClass cc = new CommandsClass(ffmpegStreamer,ip+nickname, hls);
         while (true){
             System.out.print("Введите команду:");
             String command = reader.readLine();
             if (command.equalsIgnoreCase("-kill") || command.equalsIgnoreCase("-лшдд")){
+                kill();
                 break;
             }
             else {
@@ -52,5 +43,10 @@ public class Main {
             }
         }
     }
-
+    private static String kill(){
+        final String SEND_CTRL_C_TOOL_NAME = "SendSignalCtrlC.exe";
+        return SystemUtils.IS_OS_WINDOWS ?
+                runCommand(SEND_CTRL_C_TOOL_NAME, getPidOf(RECORDING_TOOL)) :
+                runCommand("pkill", "-INT", RECORDING_TOOL);
+    }
 }

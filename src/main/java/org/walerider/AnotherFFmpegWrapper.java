@@ -41,12 +41,12 @@ public class AnotherFFmpegWrapper extends FFmpegWrapper {
     public void stopFFmpeg(){
         System.out.println("Логирование когда-нибудь будет, но сейчас это:" + killFFmpeg());
     }
-    public void anotherFFmpegDoing(String streamName,String ipAddress,String... args){
+    public void anotherFFmpegDoing(String streamName,String ipAddress,String framerate,String... args){
 
         final String[] commandsSequence = new String[]{
                 FFmpegWrapper.RECORDING_TOOL,
                 "-f", conf().ffmpegFormat(),
-                "-framerate", String.valueOf(30),
+                "-framerate", framerate,
                 "-i", conf().ffmpegDisplay(),
                 "-video_size", getScreenSize(),
                 "-c:v","libx264",

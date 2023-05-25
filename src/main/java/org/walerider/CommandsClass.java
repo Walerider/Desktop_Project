@@ -5,9 +5,11 @@ import java.lang.reflect.Method;
 public class CommandsClass {
     FFmpegStreamer ffmpegStreamer;
     String ip;
-    public CommandsClass(FFmpegStreamer ffmpegStreamer, String ip) {
+    String hls;
+    public CommandsClass(FFmpegStreamer ffmpegStreamer, String ip,String hls) {
         this.ffmpegStreamer = ffmpegStreamer;
         this.ip = ip;
+        this.hls = hls;
     }
 
     private void help(){
@@ -23,8 +25,13 @@ public class CommandsClass {
     }
     private void stop(){ffmpegStreamer.stop();}
     private void start(){
-        System.out.println("Стрим по адресу:" + ip);
+        System.out.println("RTMP Стрим по адресу:" + ip);
+        System.out.println("HLS Стрим по адресу:" + hls);
         ffmpegStreamer.start();
+    }
+    private void click(){
+        Click c = new Click();
+        c.setXY(0,10);
     }
     protected void determinant(String command){
         if(command.equalsIgnoreCase("-help") || command.equalsIgnoreCase("-h")
@@ -34,7 +41,10 @@ public class CommandsClass {
         else if(command.equalsIgnoreCase("-start")
         || command.equalsIgnoreCase("-ыефке")){start();}
         else if (command.equalsIgnoreCase("-stop") || command.equalsIgnoreCase("-ытщз")) {stop();}
-         else {
+         else if(command.equalsIgnoreCase("-click")){
+             click();
+        }
+         else{
             System.out.println("Такой команды нет. Ознакомиться со списком комманд можно с помощью команды -help");
         }
     }
