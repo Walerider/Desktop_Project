@@ -30,6 +30,7 @@ public class CommandsClass {
         ffmpegStreamer.start();
     }
     private void click(){
+        // TODO: 16.06.2023 реализовать нажатие с помощью WebSocket 
         Click c = new Click();
         c.setXY(0,10);
     }

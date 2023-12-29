@@ -53,11 +53,11 @@ public class AnotherFFmpegWrapper extends FFmpegWrapper {
                 "-b:v", "5000k",
                 "-c:a", "aac",
                 "-preset", "ultrafast",
-                "-f","flv",
+                "-f","hls",
                 "-g", "30",
                 "-r", "30",
                 "-pix_fmt", conf().ffmpegPixelFormat(),
-                "-threads", "0",
+                "-threads", "1",
                 ipAddress+streamName
         };
 
